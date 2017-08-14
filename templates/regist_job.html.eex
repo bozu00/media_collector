@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Starter Template - Materialize</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Issue Crawling Job</h1>
+
+      <div class="row">
+        <form id="confirm_form" class="col s12" method="post" action="/confirm_job"  enctype="application/x-www-form-urlencoded" >
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="Fashion_Category" name="job_name" value="<%= @info["job_name"] %>" type="text" class="validate" required>
+              <label for="job_name">Job Name</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="http://first_page.com/123/1" name="first_index_page" value="<%= @info["first_index_page"] %>" type="url" class="validate" required>
+              <label for="first_index_page">First Page URL</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="body > div.wrapper > div.main-container.list > div.main > section > ul > li > a" name="detail_link_selector" value="<%= @info["detail_link_selector"] %>" type="text" class="validate" required>
+              <label for="detail_link_selector">Detail Link Selector</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="body > div.wrapper > div.main-container.list > div.main > div.pager > div.page.active + a" name="next_link_selector" value="<%= @info["next_link_selector"] %>" type="text" class="validate" required>
+              <label for="next_link_selector">Next Page Link Selector</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="#arecmend-article > div" name="detail_content_selector" value="<%= @info["detail_content_selector"] %>" type="text" class="validate" required>
+              <label for="detail_content_selector">Detail Content Selector</label>
+            </div>
+          </div>
+          <button class="waves-effect waves-light btn" formmethod="post" type="submit">再度確認</button>
+        </form>
+      </div>
+
+
+
+      <h2>Content</h2>
+      <div class="row">
+        <p>
+        <%= @content1 %>
+        </p>
+      </div>
+
+      <h2>Next Index Link</h2>
+      <div class="row">
+        <p>
+        <%= @next_index_link %>
+        </p>
+      </div>
+
+      <h2>Index Links</h2>
+      <div class="row">
+        <ul>
+          <%= for el <- @detail_link_list do %>
+            <li><%= el %></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <!-- hidden form -->
+      <div class="row">
+        <form id="confirm_form" class="col s12" method="post" action="/regist_job" >
+          <input placeholder="Fashion_Category" name="job_name" value="<%= @info["job_name"] %>" type="hidden" class="validate">
+          <input placeholder="http://first_page.com/123/1" name="first_index_page" value="<%= @info["first_index_page"] %>" type="hidden" class="validate">
+          <input placeholder="body > div.wrapper > div.main-container.list > div.main > section > ul > li > a" name="detail_link_selector" value="<%= @info["detail_link_selector"] %>" type="hidden" class="validate">
+          <input placeholder="body > div.wrapper > div.main-container.list > div.main > div.pager > div.page.active + a" name="next_link_selector" value="<%= @info["next_link_selector"] %>" type="hidden" class="validate">
+          <input placeholder="#arecmend-article > div" name="detail_content_selector" value="<%= @info["detail_content_selector"] %>" type="hidden" class="validate">
+          <button class="waves-effect waves-light btn" formmethod="post" type="submit">登録!</button>
+        </form>
+      </div>
+      <!-- end -->
+
+
+
+      <!-- end of content -->
+    </div>
+
+    <!-- JavaScript  -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+  </body>
+</html>

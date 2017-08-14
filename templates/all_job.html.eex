@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Starter Template - Materialize</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>All Job</h1>
+      <table class="bordered">
+        <thead>
+          <tr>
+            <th>ドメイン</th>
+            <th>Job名</th>
+            <th>現在のページ数</th>
+            <th>状況</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for row <- @job_list do %>
+            <tr>
+            <%= for el <- row do %>
+              <td><%= el %></td>
+            <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="height: 80px;" class="container">
+    </div>
+    <div class="container">
+      <a  class="waves-effect waves-light btn" href="/new_job" >新しいJobの追加</a>
+    </div>
+
+    <!-- JavaScript  -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+  </body>
+</html>
