@@ -6,6 +6,8 @@
 
 
 ```
+mix deps.get
+
 MIX_ENV=prod mix escript.build
 ./media_collector
 
