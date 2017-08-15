@@ -15,9 +15,11 @@ defmodule Crawler.RootSupervisor do
   #######################
 
   def init(arg) do
+    # argにconfを渡す
     children = [
       {Registry, keys: :unique, name: CrawlerRegistry},
       {Crawler.OperationManager, [{:via, Registry, {CrawlerRegistry, "OperationManager"}}]},
+      {Crawler.IOSupervisor, ["/tmp/media_collector/"]},
       {Crawler.DomainsSupervisor, []},
       {Crawler.DownloadWorkerSupervisor, [name: Crawler.DownloadWorkerSupervisor]},
       {Crawler.ScrapeWorkerSupervisor, [name: Crawler.ScrapeWorkerSupervisor]}

@@ -14,15 +14,20 @@ defmodule Crawler.Downloader do
   #######################
   ## Callback Functions
   #######################
+  
+  def init([domain]) do
+    IO.puts "#{__MODULE__} #{domain} : start"
+    {:ok, [domain]}
+  end
 
   ## TODO initでキューを取ってくる処理を書く
   ## statusを返す処理を書く
   def handle_cast({:download, job_name, category_atom, url}, [domain] = state) do
     body = 
       Task.Supervisor.async(Crawler.DownloadWorkerSupervisor, Crawler.DownloadWorker, :start, [url])
-      |> Task.await
+      |> Task.await(10000)
 
-    :timer.sleep(1000)
+    :timer.sleep(1500)
 
     :ok = GenServer.cast(Crawler.Process.download_manager(domain), {:finish_download, job_name, category_atom, url, body})
     {:noreply, state}

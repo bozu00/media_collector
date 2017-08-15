@@ -57,6 +57,8 @@ defmodule Crawler.ScrapeManager do
 
     content |> String.slice(0, 30) |> IO.puts
     ##  IO.puts "DBにcontentを挿入!"
+    
+    :ok = GenServer.cast(Crawler.IOManager, {:file_out, job_name, url, content})
 
     # {{_, item}, new_queue} = Qex.pop(queue)
 
