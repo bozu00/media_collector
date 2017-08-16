@@ -55,7 +55,7 @@ defmodule Console.Router do
 
     body = 
       Task.Supervisor.async(Crawler.DownloadWorkerSupervisor, Crawler.DownloadWorker, :start, [info["first_index_page"]])
-      |> Task.await
+      |> Task.await(10000)
 
     {code, detail_link_list} = 
       Task.Supervisor.async(Crawler.ScrapeWorkerSupervisor, Crawler.ScrapeWorker, :scrape, [:detail_links, body, info["first_index_page"], info["detail_link_selector"]])
@@ -71,7 +71,7 @@ defmodule Console.Router do
       [] -> ""
       [first|_] -> 
         Task.Supervisor.async(Crawler.DownloadWorkerSupervisor, Crawler.DownloadWorker, :start, [first])
-        |> Task.await
+        |> Task.await(10000)
     end
 
     {_, content1} = 
