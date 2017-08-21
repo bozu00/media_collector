@@ -5,8 +5,8 @@ defmodule Crawler.RootSupervisor do
   ## Client API 
   #######################
 
-  def start_link(arg) do
-    result = {:ok, sup }  = Supervisor.start_link(__MODULE__, [], name: Crawler.Process.root_supervisor)
+  def start_link([path]) do
+    result = {:ok, sup }  = Supervisor.start_link(__MODULE__, [path], name: Crawler.Process.root_supervisor)
   end
 
 
@@ -14,12 +14,12 @@ defmodule Crawler.RootSupervisor do
   ## Callback Functions
   #######################
 
-  def init(arg) do
+  def init([path] \\ "/tmp/media_collector" ) do
     # argにconfを渡す
     children = [
       {Registry, keys: :unique, name: CrawlerRegistry},
       {Crawler.OperationManager, [{:via, Registry, {CrawlerRegistry, "OperationManager"}}]},
-      {Crawler.IOSupervisor, ["/tmp/media_collector/"]},
+      {Crawler.IOSupervisor, [path]},
       {Crawler.DomainsSupervisor, []},
       {Crawler.DownloadWorkerSupervisor, [name: Crawler.DownloadWorkerSupervisor]},
       {Crawler.ScrapeWorkerSupervisor, [name: Crawler.ScrapeWorkerSupervisor]}

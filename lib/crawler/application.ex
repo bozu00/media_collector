@@ -5,11 +5,27 @@ defmodule Crawler.Application do
 
   use Application
 
+
+  #######################
+  ## Client API 
+  #######################
+
+  def start_crawler(path) do
+    children = [
+      {Crawler.RootSupervisor,[path]}
+    ]
+
+    opts = [strategy: :one_for_one]
+    Supervisor.start_link(children, opts)
+  end
+
   #######################
   ## Callback Functions
   #######################
 
   def start(_type, _args) do
+    IO.puts"_args"
+    IO.inspect _args
     children = [
       {Crawler.RootSupervisor,[]}
     ]
@@ -18,4 +34,5 @@ defmodule Crawler.Application do
     opts = [strategy: :one_for_one]
     Supervisor.start_link(children, opts)
   end
+
 end

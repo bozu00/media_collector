@@ -18,7 +18,7 @@ defmodule MediaCollector.Mixfile do
     [
       extra_applications: [:logger,:trot, :eex],
       # applications: [:logger,:trot,:eex],
-      mod: {Crawler.Application, []}
+      # mod: {Crawler.Application, []}
     ]
   end
 

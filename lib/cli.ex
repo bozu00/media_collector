@@ -16,17 +16,27 @@ defmodule CLI do
 
 
   defp parse_args(args) do
-    # OptionParser.parse(args, 
-    #                    aliases: [n: :requests],
-    #                    strict: [requests: :integer])
-    OptionParser.parse(args)
+    OptionParser.parse(args, 
+                       aliases: [d: :dir],
+                       strict: [dir: :string])
+    # OptionParser.parse(args)
   end
 
   defp process_options(options, nodes) do
     case options do
-      # {[requests: n], [url], []} ->
-      {[], [], []} ->
+      {[dir: d], [], []} ->
         IO.puts "Hello"
+        IO.puts "file path to save html files is #{d}"
+
+        children = [
+          {Crawler.RootSupervisor,[[d]]}
+        ]
+
+        #opts = [strategy: :one_for_one, name: Crawler.RootSupervisor]
+        opts = [strategy: :one_for_one]
+        Supervisor.start_link(children, opts)
+
+
         :timer.sleep(:infinity)
       _ ->
         do_help
@@ -57,7 +67,7 @@ defmodule CLI do
   defp do_help do
     IO.puts """
     Usage:
-    ./media_collector
+    ./media_collector  --dir /tmp/media_collecor
     """
     System.halt(0)
   end

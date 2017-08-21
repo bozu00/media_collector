@@ -13,7 +13,7 @@ defmodule Crawler.IOWorker do
     end
 
     file_path = Path.join(Path.split(dir_path) ++ [job_name, url2filename(url)]) 
-    File.write file_path, content
+    status = File.write file_path, content
     # TODO 書き込みがOKだったかどうかのハンドリングを書く
     {:ok, file_path}
   end
