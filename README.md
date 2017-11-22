@@ -14,3 +14,7 @@ MIX_ENV=prod mix escript.build
 access http://localhost:4000/jobs
 ```
 
+
+![actors](img/actors.jpeg "actors")
+
+
